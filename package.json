@@ -11,6 +11,7 @@
     "apollo-datasource": "^3.3.2",
     "apollo-datasource-mongodb": "^0.5.4",
     "apollo-server": "^3.10.2",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.2",
     "graphql": "^16.5.0",
     "mongodb": "^4.6.0",

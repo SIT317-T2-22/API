@@ -25,7 +25,7 @@ const server = new ApolloServer({
   csrfPrevention: true,
   dataSources: () => ({
     users: new UsersDataSource(client.db().collection('users')),
-  })
+  }),
 });
 
 // Launch server

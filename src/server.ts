@@ -10,7 +10,7 @@ dotenv.config();
 const MONGO_USERNAME = "root"
 const MONGO_PASSWORD = "example"
 const MONGO_PORT = 27017
-const MONGO_DB = "MYDB"
+const MONGO_DB = "DB"
 const MONGO_HOST = process.env.DATABASE_HOST ?? "localhost";
 
 const dbString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;

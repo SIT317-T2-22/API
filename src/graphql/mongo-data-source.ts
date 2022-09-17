@@ -19,7 +19,7 @@ export class UsersDataSource extends MongoDataSource<UsersDocument> {
   async addUser (user: UsersDocument) {
     // Insert new object, then fetch and return the new object
     return this.collection.insertOne(user)
-      .then((response) => this.getUser(response.insertedId))
+      .then((response:{insertedId:ObjectId}) => this.getUser(response.insertedId))
     ;
   }
 }

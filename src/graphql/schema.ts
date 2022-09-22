@@ -32,8 +32,7 @@ export const resolvers = {
   },
   Mutation: {
     addUser: async (_:any, {user}:{user: UsersDocument}, {dataSources}:{dataSources:DataSources}) => {
-      const res = await dataSources.users.addUser(user);
-      return res;
+      return dataSources.users.addUser(user);
     },
   },
 };

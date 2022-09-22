@@ -26,10 +26,14 @@ export class UsersDataSource extends MongoDataSource<UsersDocument> {
   
   // Mutations
   async addUser (user: UsersDocument) {
-    user.password = UsersDataSource.hash(user.password);
-    // Insert new object, then fetch and return the new object
-    return this.collection.insertOne(user)
-      .then((response:{insertedId:ObjectId}) => this.getUser(response.insertedId))
+    return this.collection.findOne({email: user.email}).then((existingUser) => {
+      if(existingUser) return null; // return null if user already exists
+      
+      user.password = UsersDataSource.hash(user.password);
+      // Insert new object, then fetch and return the new object
+      return this.collection.insertOne(user)
+        .then((response:{insertedId:ObjectId}) => this.getUser(response.insertedId))
+    });
     ;
   }
   

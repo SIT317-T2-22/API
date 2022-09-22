@@ -7,8 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // TODO: Make safe
-const MONGO_USERNAME = process.env.ME_CONFIG_MONGODB_ADMINUSERNAME;
-const MONGO_PASSWORD = process.env.ME_CONFIG_MONGODB_ADMINPASSWORD;
+const MONGO_USERNAME = process.env.ME_CONFIG_MONGODB_ADMINUSERNAME ?? "root";
+const MONGO_PASSWORD = process.env.ME_CONFIG_MONGODB_ADMINPASSWORD ?? "example";
 const MONGO_PORT = 27017
 const MONGO_DB = "DB"
 const MONGO_HOST = process.env.DATABASE_HOST ?? "localhost";

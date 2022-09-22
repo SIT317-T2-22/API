@@ -1,5 +1,5 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
-import { ObjectId } from 'mongodb';
+import { ObjectId, WithId } from 'mongodb';
 import users, { UsersDocument } from './types/users';
 import crypto from 'crypto';
 
@@ -26,7 +26,7 @@ export class UsersDataSource extends MongoDataSource<UsersDocument> {
   
   // Mutations
   async addUser (user: UsersDocument) {
-    return this.collection.findOne({email: user.email}).then((existingUser) => {
+    return this.collection.findOne({email: user.email}).then((existingUser:WithId<UsersDocument> | null) => {
       if(existingUser) return null; // return null if user already exists
       
       user.password = UsersDataSource.hash(user.password);

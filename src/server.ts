@@ -7,24 +7,27 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // TODO: Make safe
-const MONGO_USERNAME = process.env.ME_CONFIG_MONGODB_ADMINUSERNAME ?? "root";
-const MONGO_PASSWORD = process.env.ME_CONFIG_MONGODB_ADMINPASSWORD ?? "example";
+const MONGO_USERNAME = process.env.MONGO_USERNAME ?? "root";
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD ?? "example";
 const MONGO_PORT = 27017
 const MONGO_DB = "DB"
-const MONGO_HOST = process.env.DATABASE_HOST ?? "localhost";
+const MONGO_HOST = process.env.MONGO_HOST ?? "localhost";
 
-const dbString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
+const dbString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/`;
+
 const client = new MongoClient(dbString)
 client.connect()
   .then((info) => console.log('Connected to MongoDB'))
-  .catch((e) => console.error("Error connecting to MongoDB:", e));
-
+  .catch((e) => {
+    console.error("Error connecting to MongoDB:", e)
+    console.log('connection string', dbString);
+  });
 const server = new ApolloServer({
   resolvers: resolvers,
   typeDefs: typeDefs,
   csrfPrevention: true,
   dataSources: () => ({
-    users: new UsersDataSource(client.db().collection('users')),
+    users: new UsersDataSource(client.db(MONGO_DB).collection('users')),
   }),
 });
 
